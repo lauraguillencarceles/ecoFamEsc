@@ -1,0 +1,35 @@
+/* Cambios en los fondos*/
+.panel {
+    -fx-background-color: #D6EAF8;
+}
+
+/*Cambios en el menú*/
+.menu-bar {
+    -fx-background-color: derive(#000080,20%);
+}
+.context-menu {
+    -fx-background-color: derive(#000080,50%);
+}
+.menu-bar .label {
+    -fx-text-fill: white;
+    -fx-opacity: 0.9;
+}
+
+/*Cmabios en los botones*/
+.button {
+    -fx-background-color: #000080;
+    -fx-text-fill: white;
+}
+
+/*Cambios en las etiquetas*/
+.label {
+    -fx-text-fill: #000080;
+}
+
+/*Cambios en las tablas*/
+.mitable-view {
+    -fx-base: #D6EAF8;
+}
+.error {
+    -fx-text-fill:#eb0b12;
+}
