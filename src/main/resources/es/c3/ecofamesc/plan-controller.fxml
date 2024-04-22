@@ -60,7 +60,7 @@
             <Label layoutX="333.0" layoutY="24.0" prefHeight="17.0" prefWidth="120.0" text="Usuarios autorizados" textFill="#102dd3" AnchorPane.rightAnchor="247.0" AnchorPane.topAnchor="24.0" />
             <ListView fx:id="usuariosList" layoutX="330.0" layoutY="56.0" prefHeight="96.0" prefWidth="300.0" styleClass="mitable-view" stylesheets="@ecotema.css" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="56.0" />
             <Button fx:id="quitarUsuario" layoutX="648.0" layoutY="117.0" mnemonicParsing="false" onAction="#handleQuitarUsuario" prefHeight="25.0" prefWidth="28.0" text="-" AnchorPane.rightAnchor="24.0" />
-            <Button layoutX="648.0" layoutY="161.0" mnemonicParsing="false" onAction="#handleAgregarUsuario" prefHeight="25.0" prefWidth="28.0" text="+" AnchorPane.rightAnchor="24.0" />
+            <Button fx:id="agregarUsuario" layoutX="648.0" layoutY="161.0" mnemonicParsing="false" onAction="#handleAgregarUsuario" prefHeight="25.0" prefWidth="28.0" text="+" AnchorPane.rightAnchor="24.0" />
             <TextField fx:id="usuarioMas" layoutX="330.0" layoutY="161.0" prefHeight="25.0" prefWidth="301.0" AnchorPane.rightAnchor="69.0" AnchorPane.topAnchor="161.0" />
             <Label fx:id="errores" layoutX="34.0" layoutY="153.0" prefHeight="63.0" prefWidth="228.0" styleClass="error" stylesheets="@ecotema.css" textFill="#eb0b12" wrapText="true" />
             </children>

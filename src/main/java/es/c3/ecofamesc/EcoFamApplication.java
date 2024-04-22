@@ -1,13 +1,18 @@
 package es.c3.ecofamesc;
 
+import es.c3.ecofamesc.connection.Connection;
+import es.c3.ecofamesc.connection.PlanConnection;
+import es.c3.ecofamesc.connection.UserConnection;
 import es.c3.ecofamesc.control.LoginController;
 import es.c3.ecofamesc.control.PlanController;
+import es.c3.ecofamesc.control.RegisterController;
 import es.c3.ecofamesc.model.Anotacion;
 import es.c3.ecofamesc.model.PlanEconomico;
 import es.c3.ecofamesc.model.Usuario;
 import javafx.application.Application;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ObjectPropertyBase;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -18,32 +23,26 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class EcoFamApplication extends Application {
     private Stage stage;
+    private String base = "http://localhost:8080/ecoFam-apiRest";
+    private UserConnection userConnection;
+    private PlanConnection planConnection;
+
+    private Usuario usuarioLogado;
+    private String token;
 
     public Stage getStage() {
         return stage;
     }
 
+
     @Override
     public void start(Stage stage) throws IOException {
         this.stage = stage;
-
-        if (guardadoUsuario()) {
-            //TODO conseguir el usuario
-            mostrarPlanesUsuario("usuario guardado");
-        }
-        else {
-            FXMLLoader fxmlLoader = new FXMLLoader(EcoFamApplication.class.getResource("login-view.fxml"));
-
-            Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-            LoginController loginController = fxmlLoader.getController();
-            loginController.setEcoFamApplication(this);
-            stage.setTitle("Economía Familiar");
-            stage.setScene(scene);
-            stage.show();
-        }
+        irLogin();
     }//start
 
     public static void main(String[] args) {
@@ -57,16 +56,113 @@ public class EcoFamApplication extends Application {
         return datosPlan;
     }
 
+    public void setUsuarioLogado(Usuario usuarioLogado) {
+        this.usuarioLogado = usuarioLogado;
+    }
 
+
+
+    public int registrarUsuario(String usuario, String nombreCompleto, String pass1, String pass2) {
+        //TODO redirige a la pantalla para registrar un usuario
+        return getUserConnection().registrarUsuario(usuario, nombreCompleto, pass1, pass2);
+    }
+
+    /* En datosPlan se cargan los planes del usuario sin anotaciones */
+    public void cargaPlanesUsuario(Usuario usuario) {
+        datosPlan = FXCollections.observableArrayList();
+        List<PlanEconomico> planes = getPlanConnection().getPlanesUsuario(usuarioLogado, token);
+        for (PlanEconomico plan: planes) {
+            datosPlan.add(plan);
+        }
+    }
+
+    public boolean guardarPlan(PlanEconomico plan) {
+        plan.setCreador(new SimpleObjectProperty<Usuario>(usuarioLogado));
+        boolean resultado = getPlanConnection().guardaPlan(plan, null);
+        return resultado;
+    }
+    public boolean borrarPlan(PlanEconomico plan) {
+        return getPlanConnection().borrarPlan(plan);
+    }
+    public boolean modificarPlan(PlanEconomico plan, List<Usuario> usersAntiguos) {
+        return getPlanConnection().guardaPlan(plan, usersAntiguos);
+    }
+    public Usuario getUsuarioByUsername(String user) {
+        return getUserConnection().getUsuarioByUsername(user);
+    }
+    public void setToken(String token) {
+        this.token = token;
+        Connection.token = token;
+        System.out.println(token);
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public UserConnection getUserConnection() {
+        if (userConnection == null) {
+            userConnection = new UserConnection(base, this);
+        }
+        return userConnection;
+    }
+    public PlanConnection getPlanConnection() {
+        if (planConnection == null) {
+            planConnection = new PlanConnection(base, this);
+        }
+        return planConnection;
+    }
+
+    /********************************************************************************/
+    /**************************** redirigir a pantallas *****************************/
+    /********************************************************************************/
+    /**
+     * Registro de un usuario
+     */
+    public void irRegistrarUsuario() {
+        FXMLLoader fxmlLoader = new FXMLLoader(EcoFamApplication.class.getResource("register-controller.fxml"));
+        Scene scene = null;
+        try {
+            scene = new Scene(fxmlLoader.load(), 350, 300);
+            RegisterController registerController = fxmlLoader.getController();
+            registerController.setEcoFamApplication(this);
+            stage.setTitle("Registrar usuario");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Pantalla de login
+     */
+    public void irLogin() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(EcoFamApplication.class.getResource("login-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+            LoginController loginController = fxmlLoader.getController();
+            loginController.setEcoFamApplication(this);
+            stage.setTitle("Economía Familiar");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Pantalla de mantenimiento de los planes de un usuario
+     * @param username
+     */
     public void mostrarPlanesUsuario(String  username)  {
         try {
-            Usuario usuario = getUsuarioByUsername(username);
-            cargaPlanesUsuario(usuario);
+            cargaPlanesUsuario(usuarioLogado);
             FXMLLoader fxmlLoader = new FXMLLoader(EcoFamApplication.class.getResource("plan-controller.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 700, 600);
             PlanController planController = fxmlLoader.getController();
-            planController.setEcoFamApplication(this, usuario);
-            stage.setTitle("Planes de " + usuario);
+            planController.setEcoFamApplication(this, usuarioLogado);
+            stage.setTitle("Planes de " + usuarioLogado);
             stage.setScene(scene);
             stage.show();
         } catch (IOException exception) {
@@ -74,59 +170,8 @@ public class EcoFamApplication extends Application {
             exception.printStackTrace();
         }
     }
+    /********************************************************************************/
+    /************************** fin redirigir a pantallas ***************************/
+    /********************************************************************************/
 
-    private boolean guardadoUsuario() {
-        //TODO implementar método que busca si hay usuario almacenado de otra vez, si es así, solicitar información del usuario a la API
-        return false;
-    }
-
-    public void registrarUsuario() {
-        //TODO redirige a la pantalla para registrar un usuario
-    }
-
-    /* En datosPlan se cargan los planes del usuario sin anotaciones */
-    private void cargaPlanesUsuario(Usuario usuario) {
-        //TODO cargar datosPlan
-        Usuario creador = new Usuario("Laura Guillén", "user1");
-        Collection<Usuario> usuarios = new ArrayList<Usuario>();
-        usuarios.add(new Usuario("Usuario 1", "usu1"));
-        usuarios.add(new Usuario("Usuario 2", "usu2"));
-        usuarios.add(new Usuario("Usuario 3", "usu3"));
-        datosPlan.add(new PlanEconomico(1, "Mi Plan", creador, usuarios));
-
-        creador = new Usuario("Pepe Pérez", "user2");
-        usuarios = new ArrayList<Usuario>();
-        usuarios.add(new Usuario("Usuario A", "usuA"));
-        usuarios.add(new Usuario("Usuario B", "usuB"));
-        usuarios.add(new Usuario("Usuario C", "usuC"));
-        datosPlan.add(new PlanEconomico(2, "Otro Plan", creador, usuarios));
-
-        creador = new Usuario("Juan Gómez", "user3");
-        usuarios = new ArrayList<Usuario>();
-        usuarios.add(new Usuario("User X", "usuX"));
-        usuarios.add(new Usuario("User Y", "usuY"));
-        datosPlan.add(new PlanEconomico(3, "Más Plan", creador, usuarios));
-    }
-
-    public boolean guardarPlan(PlanEconomico plan) {
-        System.out.println("Guardar nuevo");
-        //TODO guardar plan en API Rest
-        return true;
-    }
-    public boolean borrarPlan(PlanEconomico plan) {
-        System.out.println("Borrar");
-        //TODO borrar plan en API Rest
-        return true;
-    }
-    public boolean modificarPlan(PlanEconomico plan) {
-        System.out.println("Modificar");
-        //TODO guardar plan en API Rest
-        return true;
-    }
-
-    public Usuario getUsuarioByUsername(String username) {
-        //TODO solicitar el usuario con el username
-        return new Usuario("Pepito Pérez", username);
-
-    }
-}
+}//EcoFamApplication

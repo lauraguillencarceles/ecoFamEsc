@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" prefHeight="311.0" prefWidth="344.0" spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.c3.ecofamesc.control.RegisterController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+   <AnchorPane prefHeight="380.0" prefWidth="304.0" stylesheets="@ecotema.css">
+      <children>
+         <Hyperlink fx:id="volver" layoutX="187.0" layoutY="14.0" onMouseClicked="#onVolverLinkClick" text="Volver a login" />
+      
+          <Label layoutX="7.0" layoutY="77.0" text="Usuario *" />
+         <TextField id="user" fx:id="user" layoutX="123.0" layoutY="73.0" prefHeight="25.0" prefWidth="149.0" />
+          <Button fx:id="registrar" layoutX="206.0" layoutY="170.0" onAction="#onRegisterButtonClick" text="Registrar" />
+         <Label fx:id="password" layoutX="7.0" layoutY="110.0" text="Contraseña *" />
+         <PasswordField id="password" fx:id="pass1" layoutX="123.0" layoutY="106.0" />
+         <Label fx:id="password1" layoutX="7.0" layoutY="142.0" text="Contraseña *" />
+         <PasswordField id="password" fx:id="pass2" layoutX="123.0" layoutY="138.0" />
+         <Label layoutX="7.0" layoutY="43.0" text="Nombre completo *" />
+         <TextField id="usuario" fx:id="nombre" layoutX="123.0" layoutY="39.0" prefHeight="25.0" prefWidth="149.0" />
+         <Label fx:id="mensaje" layoutY="203.0" prefHeight="88.0" prefWidth="274.0" styleClass="error" stylesheets="@ecotema.css" wrapText="true" />
+      </children>
+   </AnchorPane>
+</VBox>

@@ -3,9 +3,7 @@ package es.c3.ecofamesc.model;
 
 import javafx.beans.property.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Objects;
+import java.util.*;
 
 
 public class PlanEconomico {
@@ -101,11 +99,24 @@ public class PlanEconomico {
         this.getUsuarios().add(new SimpleObjectProperty<Usuario>(user));
     }
     public void quitarUsuario(Usuario user) {
-        for (SimpleObjectProperty<Usuario> usuario : this.getUsuarios()) {
-            if (usuario.getValue().getUsername().getValue().equals(user.getUsername().getValue())) {
-                this.getUsuarios().remove(usuario);
+        try {
+            for (SimpleObjectProperty<Usuario> usuario : this.getUsuarios()) {
+                if (usuario != null && user != null
+                    &&
+                    usuario.getValue().getUsername() != null
+                    &&
+                    usuario.getValue().getUsername().getValue().equals(user.getUsername().getValue())) {
+                    this.getUsuarios().remove(usuario);
+                }
             }
+        } catch(ConcurrentModificationException cme) {}
+    }//quitarUsuario
+    public List<Usuario> getUsuariosModelo() {
+        List<Usuario> listaNormal = new ArrayList<>();
+        for (SimpleObjectProperty<Usuario> usuario : usuarios) {
+            listaNormal.add(usuario.getValue());
         }
+        return listaNormal;
     }
     @Override
     public Object clone() throws CloneNotSupportedException {

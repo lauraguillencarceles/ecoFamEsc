@@ -7,6 +7,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -31,6 +32,19 @@ public class Usuario  {
     ) {
         this.nombreCompleto = new SimpleStringProperty(nombreCompleto);
         this.username = new SimpleStringProperty(username);
+    }
+    public Usuario(int id, String nombreCompleto, String username
+    ) {
+        this.id = new SimpleIntegerProperty(id);
+        this.nombreCompleto = new SimpleStringProperty(nombreCompleto);
+        this.username = new SimpleStringProperty(username);
+    }
+    public Usuario(int id, String nombreCompleto, String username, String password
+    ) {
+        this.id = new SimpleIntegerProperty(id);
+        this.nombreCompleto = new SimpleStringProperty(nombreCompleto);
+        this.username = new SimpleStringProperty(username);
+        this.password = new SimpleStringProperty(password);
     }
 
     public SimpleIntegerProperty getId() {
@@ -87,6 +101,7 @@ public class Usuario  {
     public void setPlanesEconomicosAcceso(Collection<ObjectProperty<UsuarioPlan>> planesEconomicosAcceso) {
         this.planesEconomicosAcceso = planesEconomicosAcceso;
     }
+
 
     @Override
     public String toString() {
