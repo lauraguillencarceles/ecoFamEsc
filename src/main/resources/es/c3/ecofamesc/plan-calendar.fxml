@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<HBox fx:id="hBox" alignment="CENTER" prefHeight="600.0" prefWidth="1200.0" spacing="20.0" stylesheets="@ecotema.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.c3.ecofamesc.control.PlanCalendarController">
+   <Button fx:id="back" mnemonicParsing="false" onAction="#volverAplanes" text="&lt;&lt;">
+      <font>
+         <Font size="10.0" />
+      </font>
+   </Button>
+    <Pane fx:id="calendarPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="840.0" stylesheets="@ecotema.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+      <HBox.margin>
+         <Insets left="20.0" right="10.0" />
+      </HBox.margin></Pane>
+    <Pane fx:id="detailPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="561.0" prefWidth="230.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+      <children>
+         <Label layoutX="14.0" layoutY="14.0" text="Resumen del mes">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font></Label>
+         <Label fx:id="lblIngresos" layoutX="14.0" layoutY="38.0" text="Ingresos" textFill="#1a1b1a" />
+         <Label fx:id="lblGastos" layoutX="14.0" layoutY="56.0" text="Gastos" textFill="#362f2f" />
+         <Line endX="163.0" layoutX="61.0" layoutY="85.0" startX="-54.0" />
+         <Label fx:id="lblResumenDia" layoutX="12.0" layoutY="98.0" text="Resumen del día">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font></Label>
+         <Label fx:id="lblIngresos1" layoutX="14.0" layoutY="121.0" text="Ingresos" textFill="#28f209" />
+         <Label fx:id="lblGastos1" layoutX="18.0" layoutY="343.0" text="Gastos" textFill="#f50909" />
+         <ScrollPane fx:id="scrollIngresos" layoutX="15.0" layoutY="142.0" prefHeight="192.0" prefWidth="208.0">
+            <content>
+             <AnchorPane fx:id="pnIngresos" minHeight="0.0" minWidth="0.0" prefHeight="190.0" prefWidth="206.0" />
+            </content>
+         </ScrollPane>
+         <ScrollPane fx:id="scrollGastos" layoutX="15.0" layoutY="360.0" prefHeight="192.0" prefWidth="208.0">
+            <content>
+             <AnchorPane fx:id="pnGastos" minHeight="0.0" minWidth="0.0" prefHeight="190.0" prefWidth="206.0" />
+            </content>
+         </ScrollPane>
+         <Label fx:id="lblValorIngresos" layoutX="115.0" layoutY="38.0" prefHeight="17.0" prefWidth="93.0" text="€" textAlignment="RIGHT" textFill="#12d739" />
+         <Label fx:id="lblValorGastos" layoutX="115.0" layoutY="59.0" prefHeight="17.0" prefWidth="93.0" text="€" textAlignment="RIGHT" textFill="#f2070f" />
+      </children>
+      <HBox.margin>
+         <Insets left="10.0" right="20.0" />
+      </HBox.margin></Pane>
+</HBox>

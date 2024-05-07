@@ -7,6 +7,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Connection {
@@ -26,7 +27,10 @@ public class Connection {
 
             if (conn.getResponseCode() == 200) {
                 Scanner scanner = new Scanner(conn.getInputStream());
-                response = scanner.useDelimiter("\\Z").next();
+                try {
+                    response = scanner.useDelimiter("\\Z").next();
+                } catch (NoSuchElementException ex) {}//no se trata, no hay next y da error
+
                 scanner.close();
             }
             conn.disconnect();

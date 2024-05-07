@@ -59,6 +59,17 @@ public class PlanController  {
         agregarUsuario.setDisable(true);
         quitarUsuario.setDisable(true);
         usuarioMas.setDisable(true);
+        planesTable.setRowFactory((TableView<PlanEconomico> tv) -> {
+            TableRow<PlanEconomico> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    PlanEconomico rowData = row.getItem();
+                    //System.out.println("Doble click en "+rowData.getNombre().getValue());
+                    this.ecoFamApplication.irCalendarioPlan(rowData);
+                }
+            });
+            return row;
+        });
         planesTable.getSelectionModel().selectedItemProperty().addListener((o, ov, nv) -> {
             try {
                 if (ov != null) {

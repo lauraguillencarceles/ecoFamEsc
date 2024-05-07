@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class UtilsJSON {
@@ -85,4 +86,24 @@ public class UtilsJSON {
         }
         return jsonObject.toString().replace("\"{","{").replace("}\"", "}").replace("\\","");
     }//creaUsuarioJSON
+
+    public static String creaAnotacionJSON(LocalDate fecha, boolean gasto, String concep, Float money, PlanEconomico planEconomico)  {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("importe", money);
+            //jsonObject.put("fecha", fecha.getYear()+"-"+fecha.getMonthValue()+"-"+fecha.getDayOfMonth());
+            String mes = fecha.getMonthValue()+"";
+            if (fecha.getMonthValue()<10) {mes = "0"+mes;}
+            String dia = fecha.getDayOfMonth()+"";
+            if (fecha.getDayOfMonth()<10) {dia = "0"+dia;}
+            jsonObject.put("fecha", fecha.getYear()+"-"+mes+"-"+dia);
+
+            jsonObject.put("descripcion", concep);
+            jsonObject.put("categoria", "{\"id\":"+(gasto?"2":"1")+"}");
+            jsonObject.put("planEconomico", "{\"id\":"+planEconomico.getId().getValue()+"}");
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        return jsonObject.toString().replace("\"{","{").replace("}\"", "}").replace("\\","");
+    }
 }

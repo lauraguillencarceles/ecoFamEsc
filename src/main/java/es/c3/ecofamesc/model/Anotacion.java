@@ -1,7 +1,10 @@
 package es.c3.ecofamesc.model;
 
 
+import javafx.beans.InvalidationListener;
 import javafx.beans.property.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,6 +19,20 @@ public class Anotacion {
     private ObjectProperty<Categoria> categoria;
     private ObjectProperty<PlanEconomico> planEconomico;
 
+    public Anotacion(int id, double importe, String fecha, String descripcion, String categoria, PlanEconomico planEconomico) {
+        this.id = new SimpleIntegerProperty(id);
+        this.importe = new SimpleDoubleProperty(importe);
+        this.fecha = new SimpleDateFormat(fecha);
+        this.descripcion = new SimpleStringProperty(descripcion);
+        this.planEconomico = new SimpleObjectProperty<>(planEconomico) ;
+        //TODO dar solución a lo de las categorías
+        if ("G".equals(categoria)) {
+            this.categoria = new SimpleObjectProperty<>(Categoria.getGasto());
+        }
+        else {
+            this.categoria = new SimpleObjectProperty<>(Categoria.getIngreso());
+        }
+    }
     public SimpleIntegerProperty getId() {
         return id;
     }

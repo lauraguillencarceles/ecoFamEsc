@@ -33,3 +33,17 @@
 .error {
     -fx-text-fill:#eb0b12;
 }
+.numberGreen {
+    -fx-text-fill: rgba(6, 83, 6, 0.97);
+    -fx-text-alignment: right;
+}
+.numberRed {
+    -fx-text-fill:#eb0b12;
+    -fx-text-alignment: right;
+}
+.azulBig {
+    -fx-text-fill: #000080;
+    -fx-font-style: bold;
+    -fx-font-size: 14px;
+    -fx-text-alignment: left;
+}

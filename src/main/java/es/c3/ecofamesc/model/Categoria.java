@@ -76,4 +76,19 @@ public class Categoria {
                 //", anotaciones=" + anotaciones +
                 "}";
     }
+
+    public static Categoria getIngreso() {
+        Categoria c = new Categoria();
+        c.setId(new SimpleIntegerProperty(1));
+        c.setNombre(new SimpleStringProperty("Ingreso"));
+        c.setTipo(new SimpleStringProperty("I"));
+        return c;
+    }
+    public static Categoria getGasto() {
+        Categoria c = new Categoria();
+        c.setId(new SimpleIntegerProperty(2));
+        c.setNombre(new SimpleStringProperty("Gasto"));
+        c.setTipo(new SimpleStringProperty("G"));
+        return c;
+    }
 }

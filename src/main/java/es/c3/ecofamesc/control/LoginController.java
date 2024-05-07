@@ -33,7 +33,7 @@ public class LoginController {
 
 
         if (ecoFamApplication.getUserConnection().login(usuario, password)) {
-            ecoFamApplication.mostrarPlanesUsuario(usuario);
+            ecoFamApplication.mostrarPlanesUsuario();
         }
         else {
             mensaje.setText("Usuario y contraseña incorrectos");
@@ -42,7 +42,6 @@ public class LoginController {
 
     @FXML
     protected void onRegistroLinkClick() {
-        System.out.println("El usuario se quiere registrar");
         this.ecoFamApplication.irRegistrarUsuario();
     }
 
