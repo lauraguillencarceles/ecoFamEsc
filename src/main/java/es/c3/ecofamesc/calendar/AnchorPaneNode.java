@@ -78,6 +78,7 @@ public class AnchorPaneNode extends AnchorPane {
                 List<Anotacion> anotacionesG = controller.getAnotacionesGastos(date.getDayOfMonth(), date.getMonthValue(), date.getYear());
                 for (Node nodo : controller.getDetailPane().getChildren()) {
                     //System.out.println(nodo.getId()+" "+nodo.getClass());
+                    //TODO lista de anotaciones para poder borrar.
                     if ("scrollIngresos".equals(nodo.getId())) {
                         AnchorPane nodoInterno = (AnchorPane) ((ScrollPane) nodo).getContent();
                         String ingresos = "\n";

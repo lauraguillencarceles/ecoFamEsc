@@ -30,7 +30,7 @@ import java.util.List;
 
 public class EcoFamApplication extends Application {
     private Stage stage;
-    private String base = "http://localhost:8080/ecoFam-apiRest";
+    private String base = "http://37.187.195.139:8080/ecoFam-apiRest";
     private UserConnection userConnection;
     private PlanConnection planConnection;
     private AnotacionConnection anotacionConnection;
@@ -101,8 +101,10 @@ public class EcoFamApplication extends Application {
     public void cargaPlanesUsuario(Usuario usuario) {
         datosPlan = FXCollections.observableArrayList();
         List<PlanEconomico> planes = getPlanConnection().getPlanesUsuario(usuarioLogado, token);
-        for (PlanEconomico plan: planes) {
-            datosPlan.add(plan);
+        if (planes != null) {
+            for (PlanEconomico plan : planes) {
+                datosPlan.add(plan);
+            }
         }
     }
 

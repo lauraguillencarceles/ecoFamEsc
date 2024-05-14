@@ -23,12 +23,12 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <RadioButton fx:id="radioIngreso" layoutX="150.0" layoutY="80.0" mnemonicParsing="false" selected="true" text="Ingreso">
+      <RadioButton fx:id="radioIngreso" layoutX="150.0" layoutY="80.0" mnemonicParsing="false" selected="false" text="Ingreso">
          <toggleGroup>
             <ToggleGroup fx:id="tipo" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="radioGasto" layoutX="150.0" layoutY="100.0" mnemonicParsing="false" text="Gasto" toggleGroup="$tipo" />
+      <RadioButton fx:id="radioGasto" layoutX="150.0" layoutY="100.0" mnemonicParsing="false" selected="true" text="Gasto" toggleGroup="$tipo" />
       <Label layoutX="90.0" layoutY="134.0" text="Concepto">
          <font>
             <Font name="System Bold" size="12.0" />
