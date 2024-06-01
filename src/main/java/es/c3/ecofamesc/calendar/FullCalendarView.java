@@ -142,8 +142,13 @@ public class FullCalendarView {
         float gastos = controller.getGastosMes(yearMonth.getMonthValue(), yearMonth.getYear());
         controller.setGastos(gastos);
         controller.setIngresos(ingresos);
+
+
     }
 
+    public PlanCalendarController getController() {
+        return controller;
+    }
 
     /**
      * Move the month back by one. Repopulate the calendar with the correct dates.

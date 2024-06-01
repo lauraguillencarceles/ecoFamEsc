@@ -25,7 +25,7 @@ public class AnotacionConnection extends Connection {
 
     public boolean agregarAnotacion(LocalDate fecha, boolean gasto, String concep, Float money, PlanEconomico planEconomico) {
         String jsonInputStream = UtilsJSON.creaAnotacionJSON(fecha, gasto, concep, money, planEconomico);
-        System.out.println(jsonInputStream);
+        //System.out.println(jsonInputStream);
         int resultado = realizaPost("/anotacion", jsonInputStream);
         boolean ok = (resultado==200);
         return ok;
@@ -126,5 +126,10 @@ public class AnotacionConnection extends Connection {
             System.err.println("Error recuperando elementos "+e.getMessage());
         }
         return anotacionesGastos;
+    }
+
+    public boolean eliminaAnotacion(int id) {
+        String cadena = "/anotacion/"+id;
+        return realizaDelete(cadena);
     }
   }

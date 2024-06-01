@@ -1,16 +1,24 @@
 package es.c3.ecofamesc.control;
 
 import es.c3.ecofamesc.EcoFamApplication;
+import es.c3.ecofamesc.calendar.AnchorPaneNode;
 import es.c3.ecofamesc.calendar.UtilsCalendar;
 import es.c3.ecofamesc.model.Anotacion;
 import es.c3.ecofamesc.model.PlanEconomico;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +41,8 @@ public class PlanCalendarController {
 
     private PlanEconomico planEconomico;
     private EcoFamApplication ecoFamApplication;
+    private LocalDate diaActual;
+    private AnchorPaneNode nodoActual;
 
     public void setEcoFamApplication(EcoFamApplication ecoFamApplication) {
         this.ecoFamApplication = ecoFamApplication;
@@ -106,9 +116,65 @@ public class PlanCalendarController {
         this.lblResumenDia = lblResumenDia;
     }
 
+    public LocalDate getDiaActual() {
+        return diaActual;
+    }
+
+    public void setDiaActual(LocalDate diaActual) {
+        this.diaActual = diaActual;
+    }
+
+    public void setNodoActual(AnchorPaneNode nodoActual) {
+        this.nodoActual = nodoActual;
+    }
+
+    public AnchorPaneNode getNodoActual() {
+        return nodoActual;
+    }
+
     @FXML
     protected void volverAplanes() {
         ecoFamApplication.mostrarPlanesUsuario();
     }
+
+    @FXML
+    protected void borrarIngreso() {
+        borrarAnotacion("I");
+    }
+
+    @FXML
+    protected void borrarGasto() {
+        borrarAnotacion("G");
+    }
+
+    protected void borrarAnotacion(String tipo) {
+        try {
+            FXMLLoader loader = new FXMLLoader(EcoFamApplication.class.getResource("borrarAnotacion.fxml"));
+            Parent root = loader.load();
+            BorrarAnotacionController control = loader.getController();
+            control.setParametros(ecoFamApplication, planEconomico, diaActual, tipo);
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.showAndWait();
+
+/*
+            if (control.isInsertada()) {
+                agregaAnotacion(control.getConcept(), control.getMoney(), control.isGasto(), control.getDateFecha().getValue(), this);
+                //Actualizar el total del mes
+                float ingresos = controller.getIngresosMes(fullCalendarView.getCurrentYearMonth().getMonthValue(), fullCalendarView.getCurrentYearMonth().getYear());
+                float gastos = controller.getGastosMes(fullCalendarView.getCurrentYearMonth().getMonthValue(), fullCalendarView.getCurrentYearMonth().getYear());
+                controller.setGastos(gastos);
+                controller.setIngresos(ingresos);
+
+            }
+*/
+        } catch (IOException ignored) {
+            System.out.println(ignored.getMessage());
+        }
+    }
+
+
 
 }

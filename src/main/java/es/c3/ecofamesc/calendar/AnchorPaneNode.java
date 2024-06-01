@@ -44,6 +44,8 @@ public class AnchorPaneNode extends AnchorPane {
         // Add action handler for mouse clicked
         this.setOnMouseClicked(e -> {
             controller.getLblResumenDia().setText("Resumen del día "+date);
+            controller.setDiaActual(date);
+            controller.setNodoActual(this);
             if(e.getClickCount() > 1){
                 try {
                     FXMLLoader loader = new FXMLLoader(EcoFamApplication.class.getResource("anotacion.fxml"));
@@ -70,7 +72,7 @@ public class AnchorPaneNode extends AnchorPane {
                     System.out.println(ignored.getMessage());
                 }
 
-                System.out.println("Double clicked");
+                //System.out.println("Double clicked");
             }
             else {
                 //System.out.println("One clicked");
@@ -78,7 +80,6 @@ public class AnchorPaneNode extends AnchorPane {
                 List<Anotacion> anotacionesG = controller.getAnotacionesGastos(date.getDayOfMonth(), date.getMonthValue(), date.getYear());
                 for (Node nodo : controller.getDetailPane().getChildren()) {
                     //System.out.println(nodo.getId()+" "+nodo.getClass());
-                    //TODO lista de anotaciones para poder borrar.
                     if ("scrollIngresos".equals(nodo.getId())) {
                         AnchorPane nodoInterno = (AnchorPane) ((ScrollPane) nodo).getContent();
                         String ingresos = "\n";
@@ -173,6 +174,44 @@ public class AnchorPaneNode extends AnchorPane {
                 }
             }
         }
+    }
+
+    public void recargaPanelDetalleAnchor() {
+        List<Anotacion> anotacionesI = controller.getAnotacionesIngresos(date.getDayOfMonth(), date.getMonthValue(), date.getYear());
+        List<Anotacion> anotacionesG = controller.getAnotacionesGastos(date.getDayOfMonth(), date.getMonthValue(), date.getYear());
+        float ingresosF = controller.getIngresos(date.getDayOfMonth(), date.getMonthValue(), date.getYear());
+        float gastosF = controller.getGastos(date.getDayOfMonth(), date.getMonthValue(), date.getYear());
+
+        for (Node nodo : controller.getDetailPane().getChildren()) {
+            //System.out.println(nodo.getId()+" "+nodo.getClass());
+            if ("scrollIngresos".equals(nodo.getId())) {
+                AnchorPane nodoInterno = (AnchorPane) ((ScrollPane) nodo).getContent();
+                String ingresosS = "\n";
+                for (Anotacion a : anotacionesI) {
+                    String importe = UtilsCalendar.getDoubleFormateado(a.getImporte().getValue());
+                    ingresosS += getDescripcion(a.getDescripcion().getValue())+": "+importe+"\n";
+                }
+                Text nuevoIngreso = new Text(ingresosS);
+                nuevoIngreso.setId("ingreso");
+                limpiarNodo(nodoInterno,"ingreso");
+                nodoInterno.getChildren().add(nuevoIngreso);
+                //System.out.println(ingresos);
+            }
+            if ("scrollGastos".equals(nodo.getId())) {
+                AnchorPane nodoInterno = (AnchorPane) ((ScrollPane) nodo).getContent();
+                String gastosS = "\n";
+                for (Anotacion a : anotacionesG) {
+                    String importe = UtilsCalendar.getDoubleFormateado(a.getImporte().getValue());
+                    gastosS += getDescripcion(a.getDescripcion().getValue())+": "+importe+"\n";
+                }
+                Text nuevoGasto = new Text(gastosS);
+                nuevoGasto.setId("gasto");
+                limpiarNodo(nodoInterno,"gasto");
+                nodoInterno.getChildren().add(nuevoGasto);
+                //System.out.println(gastos);
+            }
+        }
+        rellenaAP(this,String.valueOf(date.getDayOfMonth()), ingresosF,gastosF);
     }
 
     private void rellenaAP(AnchorPane ap, String day, float ingresos, float gastos) {

@@ -90,6 +90,11 @@ public class Anotacion {
 
     @Override
     public String toString() {
+        return descripcion.getValue()+": " + importe.getValue() ;
+    }
+
+
+    public String toString2() {
         return "Anotacion{" +
                 "id=" + id +
                 ", importe=" + importe +

@@ -55,7 +55,7 @@ public class AnotacionController {
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy" );
         dateFecha.setValue(fecha);
         dateFecha.setConverter(new LocalDateStringConverter(formato, null));
-        System.out.println(fecha.toString());
+        //System.out.println(fecha.toString());
     }
 
     public void aceptarAnotacion(ActionEvent actionEvent) {

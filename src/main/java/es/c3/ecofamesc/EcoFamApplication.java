@@ -34,7 +34,7 @@ public class EcoFamApplication extends Application {
     private UserConnection userConnection;
     private PlanConnection planConnection;
     private AnotacionConnection anotacionConnection;
-
+    private FullCalendarView fullCalendarView;
 
     private Usuario usuarioLogado;
     private String token;
@@ -93,6 +93,9 @@ public class EcoFamApplication extends Application {
         return getAnotacionConnection().getAnotacionesGastos(dia, mes, agno, planEconomico);
     }
 
+    public boolean eliminarAnotacion(int id) {
+        return getAnotacionConnection().eliminaAnotacion(id);
+    }
     public int registrarUsuario(String usuario, String nombreCompleto, String pass1, String pass2) {
         return getUserConnection().registrarUsuario(usuario, nombreCompleto, pass1, pass2);
     }
@@ -125,7 +128,7 @@ public class EcoFamApplication extends Application {
     public void setToken(String token) {
         this.token = token;
         Connection.token = token;
-        System.out.println(token);
+        //System.out.println(token);
     }
 
     public String getToken() {
@@ -151,6 +154,11 @@ public class EcoFamApplication extends Application {
         }
         return anotacionConnection;
     }
+
+    public FullCalendarView getFullCalendarView() {
+        return fullCalendarView;
+    }
+
     /********************************************************************************/
     /**************************** redirigir a pantallas *****************************/
     /********************************************************************************/
@@ -215,7 +223,7 @@ public class EcoFamApplication extends Application {
             FXMLLoader loader = new FXMLLoader(EcoFamApplication.class.getResource("plan-calendar.fxml"));
             Scene scene = new Scene(loader.load(), 1200, 650);
             PlanCalendarController controller = loader.getController();
-            FullCalendarView fullCalendarView = new FullCalendarView(YearMonth.now(), controller, this, planEconomico);
+            fullCalendarView = new FullCalendarView(YearMonth.now(), controller, this, planEconomico);
             controller.getCalendarPane().getChildren().add(fullCalendarView.getView());
             controller.setPlanEconomico(planEconomico);
             controller.setEcoFamApplication(this);
