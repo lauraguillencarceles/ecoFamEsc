@@ -228,5 +228,10 @@ public class PlanController  {
         this.planDuplicado.quitarUsuario(uSeleccionado);
         this.modificado = true;
     }
+
+    @FXML
+    protected void onLoginLinkClick() {
+        this.ecoFamApplication.irLogin();
+    }
 }
 
