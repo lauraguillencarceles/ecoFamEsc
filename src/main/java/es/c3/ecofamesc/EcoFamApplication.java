@@ -186,10 +186,10 @@ public class EcoFamApplication extends Application {
     public void irLogin() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(EcoFamApplication.class.getResource("login-view.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+            Scene scene = new Scene(fxmlLoader.load(), 400, 240);
             LoginController loginController = fxmlLoader.getController();
             loginController.setEcoFamApplication(this);
-            stage.setTitle("Economía Familiar");
+            stage.setTitle("FinPlanner: Planifica tus finanzas");
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
