@@ -43,7 +43,7 @@
 }
 .azulBig {
     -fx-text-fill: #000080;
-    -fx-font-style: bold;
+    -fx-font-weight: bold;
     -fx-font-size: 14px;
     -fx-text-alignment: left;
 }
