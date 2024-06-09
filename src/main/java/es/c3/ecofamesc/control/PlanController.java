@@ -172,13 +172,18 @@ public class PlanController  {
             if (ecoFamApplication.guardarPlan(this.planDuplicado)) {
                 ecoFamApplication.cargaPlanesUsuario(userActual);
                 planesTable.setItems(ecoFamApplication.getDatosPlan());
-                this.planDuplicado= planesTable.getItems().get(planesTable.getItems().size() - 1);
-                //es uno nuevo
-                desconectaDatos(this.planDuplicado);
-                //ecoFamApplication.cargaPlanesUsuario(userActual);
-                //planesTable.getItems().add(this.planDuplicado);
-                planesTable.getSelectionModel().select(this.planDuplicado);
-                mensaje (Alert.AlertType.INFORMATION, "Plan "+nombrePlan, "Plan creado", "El plan "+nombrePlan+" se ha creado correctamente");
+                if (planesTable.getItems().size() != 0) {
+                    this.planDuplicado = planesTable.getItems().get(planesTable.getItems().size() - 1);
+                    //es uno nuevo
+                    desconectaDatos(this.planDuplicado);
+                    //ecoFamApplication.cargaPlanesUsuario(userActual);
+                    //planesTable.getItems().add(this.planDuplicado);
+                    planesTable.getSelectionModel().select(this.planDuplicado);
+                    mensaje(Alert.AlertType.INFORMATION, "Plan " + nombrePlan, "Plan creado", "El plan " + nombrePlan + " se ha creado correctamente");
+                }
+                else {
+                    mensaje (Alert.AlertType.ERROR, "Plan "+nombrePlan, "Error creando el plan", "No se ha podido crear el plan "+nombrePlan);
+                }
             }
             else {
                 mensaje (Alert.AlertType.ERROR, "Plan "+nombrePlan, "Error creando el plan", "No se ha podido crear el plan "+nombrePlan);

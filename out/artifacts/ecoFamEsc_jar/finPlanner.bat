@@ -1,1 +1,0 @@
-java -jar ecoFamEsc.jar --module-path C:/Program Files/Java/javafx-sdk-22.0.1/lib --add-modules=javafx.controls

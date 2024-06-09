@@ -19,10 +19,10 @@
       
           <Label layoutX="23.0" layoutY="35.0" text="Usuario" />
          <TextField id="usuario" fx:id="user" layoutX="23.0" layoutY="55.0" prefHeight="25.0" prefWidth="149.0" />
-          <Button layoutX="126.0" layoutY="155.0" onAction="#onLoginButtonClick" text="Login" />
+          <Button layoutX="75.0" layoutY="155.0" onAction="#onLoginButtonClick" text="Login" />
          <Label fx:id="password" layoutX="23.0" layoutY="95.0" text="Contraseña" />
          <PasswordField id="password" fx:id="pass" layoutX="23.0" layoutY="116.0" />
-         <Label fx:id="mensaje" layoutX="7.0" layoutY="146.0" styleClass="error" stylesheets="@ecotema.css" textFill="#f20808" />
+         <Label fx:id="mensaje" layoutX="139.0" layoutY="159.0" prefHeight="33.0" prefWidth="206.0" styleClass="error" stylesheets="@ecotema.css" textFill="#f20808" />
       </children>
    </AnchorPane>
 </VBox>

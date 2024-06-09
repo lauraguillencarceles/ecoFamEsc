@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="borrarAnotacionPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="285.0" prefWidth="339.0" styleClass="imageEuro2" stylesheets="@ecotema.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.c3.ecofamesc.control.BorrarAnotacionController">
+<AnchorPane fx:id="borrarAnotacionPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="285.0" prefWidth="339.0" styleClass="imageEuro2" stylesheets="@ecotema.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="es.c3.ecofamesc.control.BorrarAnotacionController">
     <children>
         <Label fx:id="lblAnotacion" layoutX="42.0" layoutY="23.0" text="Anotación">
             <font>

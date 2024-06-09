@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<BorderPane prefHeight="600.0" prefWidth="700.0" styleClass="panel" stylesheets="@ecotema.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.c3.ecofamesc.control.PlanController">
+<BorderPane prefHeight="600.0" prefWidth="700.0" styleClass="panel" stylesheets="@ecotema.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="es.c3.ecofamesc.control.PlanController">
 
     <center>
         <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">

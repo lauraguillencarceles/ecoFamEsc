@@ -52,7 +52,6 @@ public class Connection {
             conn.setRequestProperty("Accept", "application/json");
             conn.setDoOutput(true);
 
-
             try (OutputStream outputStream = conn.getOutputStream()) {
                 byte[] input = jsonInputStream.getBytes("utf-8");
                 outputStream.write(input, 0, input.length);
@@ -105,7 +104,7 @@ public class Connection {
             }
 
             if(conn.getResponseCode() == 200) {
-                System.out.println("Elemento " + fin + " borrado");
+                //System.out.println("Elemento " + fin + " borrado");
                 devuelve = true;
             }
             else
@@ -130,7 +129,7 @@ public class Connection {
             conn.setRequestProperty("Authorization", "Bearer " + token);
 
             if(conn.getResponseCode() == 200) {
-                System.out.println("Elemento " + fin + " borrado");
+                //System.out.println("Elemento " + fin + " borrado");
                 devuelve = true;
             }
             else

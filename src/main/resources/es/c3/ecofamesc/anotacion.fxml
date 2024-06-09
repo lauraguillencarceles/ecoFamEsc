@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anotacionPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="285.0" prefWidth="400.0" styleClass="imageEuro2" stylesheets="@ecotema.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.c3.ecofamesc.control.AnotacionController">
+<AnchorPane fx:id="anotacionPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="285.0" prefWidth="400.0" styleClass="imageEuro2" stylesheets="@ecotema.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="es.c3.ecofamesc.control.AnotacionController">
    <children>
       <DatePicker fx:id="dateFecha" layoutX="150.0" layoutY="40.0" />
       <Label layoutX="90.0" layoutY="40.0" text="Fecha">
